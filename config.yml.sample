@@ -1,0 +1,11 @@
+# config.yml.sample to rename to config.yaml
+#
+# Copyright (C) 2018 Benno Schneider, projects@bschneider.org
+
+consumer_key:        '<your access key>'
+consumer_secret:     '<your consumer secret code>'
+access_token:        '<your access token>'
+access_token_secret: '<your access token secret code>'
+
+user: 'realDonaldTrump'
+max_no_tweets: 200
