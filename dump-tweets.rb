@@ -22,12 +22,12 @@ end
 
 count = 0
 max_id = nil
-options = {count: 200, include_rts: true}
+options = {count: 200, include_rts: true, tweet_mode: 'extended'}
 
 File.open(YAML_FILE, 'w') do |f|
   f.puts '---' # this is going to be an array
   while(count < config['max_no_tweets'])
-    # each loop gets 200 tweet
+    # each loop gets 200 tweets
     options[:max_id] = max_id unless max_id.nil?
     begin
       tweets = client.user_timeline(config['user'], options)
@@ -43,7 +43,10 @@ File.open(YAML_FILE, 'w') do |f|
       if tweet.is_a?(Twitter::Tweet)
         count += 1
         count_str = "%4d" % count
-        puts count_str + ' ' + tweet.created_at.to_s + ': ' + tweet.text.slice(0..60)
+        # current v6.2.0 Twitter gem does not support full_text correctly
+        # https://github.com/sferik/twitter/issues/880
+        text = tweet.attrs[:full_text].gsub("\r",'').gsub("\n",' ').slice(0..69)
+        puts count_str + ' ' + tweet.created_at.to_s + ': ' + text
       end
       # set max_id to get the next 200 tweet
       max_id = tweet.id if max_id.nil?

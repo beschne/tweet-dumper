@@ -44,7 +44,11 @@ tweets.each.with_index(1) do |tweet, i|
   # row[0] = "=HYPERLINK(\"#{tweet.uri}\"; \"#{tweet.id.to_s}\")"
   row[0] = tweet.id.to_s
   row[1] = tweet.created_at
-  row[2] = tweet.full_text
+  # current v6.2.0 Twitter gem does not support full_text correctly
+  # https://github.com/sferik/twitter/issues/880
+  full_text = tweet.retweeted? ? tweet.attrs[:retweeted_status][:full_text]
+                               : tweet.attrs[:full_text]
+  row[2] = full_text
   row[3] = tweet.retweet_count
   row[4] = tweet.favorite_count
   row[5] = tweet.lang
