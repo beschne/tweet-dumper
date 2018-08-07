@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# export-xls.rb - export tweets to Excel File
+# export-to-xls.rb - export tweets to Excel File
 #
 # Copyright (C) 2018 Benno Schneider, projects@bschneider.org
 
