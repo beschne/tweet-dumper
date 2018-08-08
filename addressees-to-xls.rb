@@ -19,12 +19,16 @@ tweets.each do |tweet|
   if !tweet.attrs[:in_reply_to_status_id].nil?
     name = tweet.attrs[:in_reply_to_screen_name]
     id = tweet.attrs[:in_reply_to_user_id_str]
-    if !addressees.find { |a| a[:name] == name}
+    found = addressees.find { |a| a[:name] == name}
+    if !found
       puts name
       addressee = Hash.new
-      addressee[:name] = name
-      addressee[:id]   = id
+      addressee[:name]  = name
+      addressee[:id]    = id
+      addressee[:count] = 1
       addressees.push addressee
+    else
+      found[:count] = found[:count] + 1
     end
   end
 end
@@ -39,9 +43,11 @@ sheet = book.create_worksheet :name => 'replies'
 row = sheet.row(0)
 row[0] = 'screen name'
 row[1] = 'user id'
+row[2] = 'count'
 addressees.each.with_index(1) do |a, i|
   row = sheet.row(i)
   row[0] = a[:name]
   row[1] = a[:id]
+  row[2] = a[:count]
 end
 book.write EXCEL_FILE
