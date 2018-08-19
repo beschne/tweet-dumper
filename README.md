@@ -20,4 +20,5 @@ This installs all necessary Ruby libraries.
 * *dump-tweets.rb* - dumps all tweets from a user to a YAML file
 * *download-media.rb* - downloads all media from YAML file
 * *export-to-xls.rb* - exports tweets from YAML file to an Excel file
-* *addressees-to-xls* - export all addressees' names and ids to an Excel file
+* *addressees-to-xls.rb* - export all addressees' names and ids to an Excel file
+* *monitor.rb* - monitors Twitter accounts to a CSV file, even protected ones
