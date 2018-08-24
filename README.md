@@ -21,5 +21,5 @@ This installs all necessary Ruby libraries.
 * *download-media.rb* - downloads all media from YAML file
 * *export-to-xls.rb* - exports tweets from YAML file to an Excel file
 * *addressees-to-xls.rb* - export all addressees' names and ids to an Excel file
-* *places-to-xls.rb - export places with time and text to an Excel file
+* *places-to-xls.rb* - export places with time and text to an Excel file
 * *monitor.rb* - monitors Twitter accounts to a CSV file, even protected ones
