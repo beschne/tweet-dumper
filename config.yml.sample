@@ -9,3 +9,11 @@ access_token_secret: '<your access token secret code>'
 
 user: 'realDonaldTrump'
 max_no_tweets: 200
+
+subjects:
+  - array
+  - of
+  - accounts
+  - screen names
+  - and/or
+  - ids
