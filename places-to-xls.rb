@@ -20,19 +20,21 @@ row = sheet.row(0)
 sheet.row(0).default_format = format
 row[0] = 'created'
 row[1] = 'place'
-row[2] = 'tweet'
+row[2] = 'country'
+row[3] = 'tweet'
 
 tweets = YAML::load_file(YAML_FILE)
 
 index = 1
 tweets.each do |tweet|
-  if tweet.attrs[:place] && tweet.attrs[:place][:full_name]
+  if tweet.attrs[:place] && tweet.attrs[:place][:name]
     puts "#{tweet.created_at}: #{tweet.place.full_name}"
     row = sheet.row(index)
     sheet.row(index).default_format = format
     row[0] = tweet.created_at
-    row[1] = tweet.place.full_name
-    row[2] = tweet.attrs[:full_text]
+    row[1] = tweet.place.name
+    row[2] = tweet.place.country
+    row[3] = tweet.attrs[:full_text]
     row.set_format 0, format_date
     index += 1
   end
