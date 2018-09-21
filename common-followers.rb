@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# new_followers.sh - find common followers for givven list of accounts
+# common-followers.sh - find common followers for givven list of accounts
 #
 # Copyright (C) 2018 Benno Schneider, projects@bschneider.org
 
