@@ -22,22 +22,29 @@ end
 options = {}
 
 loop do
-  user = client.user(config['user'], options)
-  time_str = Time.now.strftime("%d-%m-%Y %H:%M")
-  print "#{time_str}: #{user.screen_name}, count: #{user.statuses_count}, "
-  print "favs: #{user.favorites_count}, "
-  print "friend: #{user.friends_count}, "
-  print "followers: #{user.followers_count}"
-  puts
-  File.open(MONITOR_FILE, 'a') do |f|
-    f.print "#{time_str}, "
-    f.print "#{user.id.to_s}, #{user.screen_name}, "
-    f.print "#{user.statuses_count}, "
-    f.print "#{user.favorites_count}, "
-    f.print "#{user.listed_count}, "
-    f.print "#{user.friends_count}, "
-    f.print "#{user.followers_count}"
-    f.puts
+  begin
+    user = client.user(config['user'], options)
+    time_str = Time.now.strftime("%d-%m-%Y %H:%M")
+    print "#{time_str}: #{user.screen_name}, count: #{user.statuses_count}, "
+    print "favs: #{user.favorites_count}, "
+    print "friend: #{user.friends_count}, "
+    print "followers: #{user.followers_count}"
+    puts
+    File.open(MONITOR_FILE, 'a') do |f|
+      f.print "#{time_str}, "
+      f.print "#{user.id.to_s}, #{user.screen_name}, "
+      f.print "#{user.statuses_count}, "
+      f.print "#{user.favorites_count}, "
+      f.print "#{user.listed_count}, "
+      f.print "#{user.friends_count}, "
+      f.print "#{user.followers_count}"
+      f.puts
+    end
+  rescue StandardError => e
+    puts e.message
+    File.open(MONITOR_FILE, 'a') do |f|
+      f.puts e.message
+    end
   end
   delay = ((50 + rand(20)) * 60) + rand(120)
   puts "Sleeping #{delay / 60} minutes.."

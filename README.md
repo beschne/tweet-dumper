@@ -1,7 +1,7 @@
 # Tweet Dumper
 
-Dumps whole Twitter timeline including media for a given user to a YAML file
-for full analysis with Microsoft Excel.
+Package to dump whole Twitter timeline including media for a given user
+for full analysis and to monitor this users statistics.
 
 ## Ruby
 
@@ -22,4 +22,10 @@ This installs all necessary Ruby libraries.
 * *export-to-xls.rb* - exports tweets from YAML file to an Excel file
 * *addressees-to-xls.rb* - export all addressees' names and ids to an Excel file
 * *places-to-xls.rb* - export places with time and text to an Excel file
-* *monitor.rb* - monitors Twitter accounts to a CSV file, even protected ones
+* *monitor.rb* - monitors Twitter account statistics to a CSV file, even protected ones
+
+## Remarks
+
+To use *monitor.rb* as a daemon start it with *nohup*:
+
+    $ nohup ./monitor.rb > monitor.out 2> monitor.err < /dev/null &
