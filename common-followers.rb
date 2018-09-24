@@ -18,7 +18,7 @@ end
 
 # add subjects to check in subjects array within config.yml
 subjects = config['subjects']
-treshold = subjects.length / 2
+treshold = subjects.length / 2 - 1
 
 map = []
 
@@ -49,17 +49,11 @@ end
 puts "Sorting followers by match count"
 map.sort_by! { |m| m[:count] }
 
-puts "Finding screen names"
-map.each do |m|
-  if m[:count] > treshold then
-    m[:screen_name] = client.user(m[:id]).screen_name
-    puts "  #{m[:id]}: #{m[:screen_name]}"
-  end
-end
-
 puts "Common followers by count matching (larger than #{treshold}):"
 map.each do |m|
   if m[:count] > treshold then
-    puts "#{m[:count]}x #{m[:id]}, #{m[:screen_name]}"
+    screen_name = client.user(m[:id]).screen_name
+    since = client.user(m[:id]).created_at.strftime("%d%b%y")
+    puts "#{m[:count]}x #{m[:id]}, #{screen_name}, joined #{since}"
   end
 end

@@ -23,7 +23,7 @@ This installs all necessary Ruby libraries.
 * *addressees-to-xls.rb* - export all addressees' names and ids to an Excel file
 * *places-to-xls.rb* - export places with time and text to an Excel file
 * *monitor.rb* - monitors Twitter account statistics to a CSV file, even protected ones
-* *common_followers.rb* - find common followers of a set of accounts
+* *common_followers.rb* - find common followers for a set of accounts
 
 ## Remarks
 
