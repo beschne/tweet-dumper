@@ -18,9 +18,9 @@ end
 
 # add subjects to check in subjects array within config.yml
 subjects = config['subjects']
-treshold = subjects.length / 2 - 1
 
 map = []
+max_count = 1
 
 puts "Gathering followers for"
 subjects.each do |id|
@@ -34,6 +34,9 @@ subjects.each do |id|
     puts "  Sleeping for #{sleep_time} seconds"
     sleep sleep_time
     retry
+  rescue Twitter::Error::Unauthorized
+    puts "  - Account is protected"
+    followers = []
   end
   followers.each do |f|
     m = map.find {|x| x[:id] == f}
@@ -42,6 +45,7 @@ subjects.each do |id|
       map.push hash
     else
       m[:count] = m[:count] + 1
+      max_count = m[:count] if max_count < m[:count]
     end
   end
 end
@@ -49,9 +53,11 @@ end
 puts "Sorting followers by match count"
 map.sort_by! { |m| m[:count] }
 
-puts "Common followers by count matching (larger than #{treshold}):"
+treshold = max_count / 2
+
+puts "Common followers by count matching (greater or equal than #{treshold}):"
 map.each do |m|
-  if m[:count] > treshold then
+  if m[:count] >= treshold then
     screen_name = client.user(m[:id]).screen_name
     since = client.user(m[:id]).created_at.strftime("%d%b%y")
     puts "#{m[:count]}x #{m[:id]}, #{screen_name}, joined #{since}"
